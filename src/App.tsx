@@ -1,39 +1,36 @@
+// App.tsx
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Link } from 'react-router-dom'
+import { FaBook, FaUser, FaBars } from 'react-icons/fa'
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-  const navigate = useNavigate()
+function App({ children }: { children: React.ReactNode }) {
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Jupyter Time Machine</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <button onClick={() => navigate('/upload')}>
-          Upload Notebook
-        </button>
-        <button onClick={() => navigate('/notebook')}>
-          Notebooks
-        </button>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app-container">
+      <header className="app-header">
+        <Link to="/" className="header-logo">
+          <FaBook size={24} />
+        </Link>
+        <h1 className="header-title">Jupyter Time Machine</h1>
+        <div className="header-controls">
+          <button
+            className="menu-button"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaBars size={20} />
+          </button>
+          <button className="user-button">
+            <FaUser size={20} />
+          </button>
+        </div>
+      </header>
+      <main className="app-content">
+        {children}
+      </main>
+    </div>
   )
 }
 
